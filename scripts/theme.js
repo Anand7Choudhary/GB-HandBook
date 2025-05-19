@@ -67,6 +67,13 @@ class ThemeManager {
                 logo.src = logo.src.replace('logo.svg', 'logo-dark.svg');
             }
         });
+
+        const profilePic = document.querySelector('.profile-image img');
+        if(currentTheme === 'dark'){
+            profilePic.src = profilePic.src.replace('profilePic.png', 'profilePic-dark.png');
+        }else{
+            profilePic.src = profilePic.src.replace('profilePic-dark.png', 'profilePic.png');
+        }
     }
 }
 
