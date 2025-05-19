@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VC Metrics Handbook - Growth Bubble</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <style>
+        /* Handbook-specific styles */
+        .handbook-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: var(--spacing-xl);
+            padding-top: 4rem;
+            min-height: 100vh;
+        }
+
+        .handbook-sidebar {
+            position: sticky;
+            top: 4rem;
+            height: calc(100vh - 4rem);
+            padding: var(--spacing-md);
+            background-color: var(--color-background);
+            border-right: 1px solid var(--color-border);
+            overflow-y: auto;
+        }
+
+        .handbook-content {
+            padding: var(--spacing-xl) var(--spacing-xl) var(--spacing-xl) 0;
+        }
+
+        .handbook-nav {
+            list-style: none;
+        }
+
+        .handbook-nav li {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .handbook-nav a {
+            display: block;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            color: var(--color-text-light);
+            text-decoration: none;
+            border-radius: var(--radius-sm);
+            transition: var(--transition-base);
+        }
+
+        .handbook-nav a:hover,
+        .handbook-nav a.active {
+            color: var(--color-primary);
+            background-color: var(--color-background-alt);
+        }
+
+        .handbook-nav .nav-section {
+            font-weight: 600;
+            color: var(--color-text);
+            margin-top: var(--spacing-md);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .handbook-section {
+            margin-bottom: var(--spacing-xl);
+            scroll-margin-top: 6rem;
+        }
+
+        .handbook-section h2 {
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-sm);
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        .handbook-section h3 {
+            margin-top: var(--spacing-lg);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .handbook-section p {
+            margin-bottom: var(--spacing-md);
+            line-height: 1.7;
+        }
+
+        .handbook-section ul,
+        .handbook-section ol {
+            margin-bottom: var(--spacing-md);
+            padding-left: var(--spacing-lg);
+        }
+
+        .handbook-section li {
+            margin-bottom: var(--spacing-sm);
+            line-height: 1.7;
+        }
+
+        .handbook-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-lg) 0;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .handbook-table th,
+        .handbook-table td {
+            padding: var(--spacing-sm) var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .handbook-table th {
+            background-color: var(--color-background-alt);
+            font-weight: 600;
+        }
+
+        .handbook-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .handbook-table tr:hover td {
+            background-color: var(--color-background-alt);
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--color-text-light);
+            text-decoration: none;
+            margin-bottom: var(--spacing-lg);
+            transition: var(--transition-base);
+        }
+
+        .back-link:hover {
+            color: var(--color-primary);
+        }
+
+        .back-link::before {
+            content: '←';
+            margin-right: var(--spacing-xs);
+        }
+
+        @media (max-width: 1024px) {
+            .handbook-container {
+                grid-template-columns: 1fr;
+            }
+
+            .handbook-sidebar {
+                position: fixed;
+                top: 4rem;
+                left: 0;
+                right: 0;
+                height: auto;
+                max-height: calc(100vh - 4rem);
+                z-index: 100;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+                border-right: none;
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .handbook-sidebar.active {
+                transform: translateY(0);
+            }
+
+            .handbook-content {
+                padding: var(--spacing-xl);
+            }
+
+            .handbook-toggle {
+                display: block;
+                position: fixed;
+                bottom: 2rem;
+                right: 5rem;
+                background-color: var(--color-primary);
+                color: white;
+                padding: 0.75rem;
+                border-radius: 50%;
+                box-shadow: var(--shadow-md);
+                z-index: 101;
+                cursor: pointer;
+                transition: var(--transition-base);
+            }
+
+            .handbook-toggle:hover {
+                transform: translateY(-2px);
+                box-shadow: var(--shadow-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-content">
+            <a href="/" class="logo">Growth Bubble</a>
+            <a href="/" class="btn btn-secondary back-btn">← Back to Home</a>
+        </div>
+    </nav>
+
+    <!-- Handbook Container -->
+    <div class="handbook-container">
+        <!-- Sidebar Navigation -->
+        <aside class="handbook-sidebar">
+            <nav>
+                <ul class="handbook-nav">
+                    <li class="nav-section">Overview</li>
+                    <li><a href="#executive-summary" class="active">Executive Summary</a></li>
+                    <li><a href="#introduction">Introduction</a></li>
+                    
+                    <li class="nav-section">Core Metrics</li>
+                    <li><a href="#financial-metrics">Financial Metrics</a></li>
+                    <li><a href="#growth-metrics">Growth Metrics</a></li>
+                    <li><a href="#unit-economics">Unit Economics</a></li>
+                    
+                    <li class="nav-section">Industry Frameworks</li>
+                    <li><a href="#market-analysis">Market Analysis</a></li>
+                    <li><a href="#competitive-landscape">Competitive Landscape</a></li>
+                    <li><a href="#business-model">Business Model</a></li>
+                    
+                    <li class="nav-section">Red Flags</li>
+                    <li><a href="#common-pitfalls">Common Pitfalls</a></li>
+                    <li><a href="#risk-factors">Risk Factors</a></li>
+                    
+                    <li class="nav-section">Sector Deep Dives</li>
+                    <li><a href="#saas">SaaS</a></li>
+                    <li><a href="#marketplace">Marketplace</a></li>
+                    <li><a href="#fintech">FinTech</a></li>
+                    
+                    <li class="nav-section">Appendix</li>
+                    <li><a href="#glossary">Glossary</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="handbook-content">
+            <a href="index.html" class="back-link">Back to Home</a>
+            
+            <div class="handbook-section" id="executive-summary">
+                <h1>VC Metrics Handbook</h1>
+                <p class="subheadline">A comprehensive guide to evaluating early-stage startups in the Indian ecosystem</p>
+                
+                <h2>Executive Summary</h2>
+                <p>This handbook provides a structured framework for evaluating early-stage startups in India, focusing on key metrics, industry benchmarks, and sector-specific considerations. Whether you're a founder looking to understand investor expectations or an investor seeking to make data-driven decisions, this guide will help you navigate the complex landscape of startup evaluation.</p>
+                
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>Understanding the fundamental metrics that matter in early-stage investing</li>
+                    <li>Learning how to benchmark startups against industry standards</li>
+                    <li>Identifying red flags and potential risks in startup evaluation</li>
+                    <li>Developing a structured approach to due diligence</li>
+                </ul>
+            </div>
+            <div class="handbook-section" id="executive-summary">
+                <h1>VC Metrics Handbook</h1>
+                <p class="subheadline">A comprehensive guide to evaluating early-stage startups in the Indian ecosystem</p>
+                
+                <h2>Executive Summary</h2>
+                <p>This handbook provides a structured framework for evaluating early-stage startups in India, focusing on key metrics, industry benchmarks, and sector-specific considerations. Whether you're a founder looking to understand investor expectations or an investor seeking to make data-driven decisions, this guide will help you navigate the complex landscape of startup evaluation.</p>
+                
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>Understanding the fundamental metrics that matter in early-stage investing</li>
+                    <li>Learning how to benchmark startups against industry standards</li>
+                    <li>Identifying red flags and potential risks in startup evaluation</li>
+                    <li>Developing a structured approach to due diligence</li>
+                </ul>
+            </div>
+            <div class="handbook-section" id="executive-summary">
+                <h1>VC Metrics Handbook</h1>
+                <p class="subheadline">A comprehensive guide to evaluating early-stage startups in the Indian ecosystem</p>
+                
+                <h2>Executive Summary</h2>
+                <p>This handbook provides a structured framework for evaluating early-stage startups in India, focusing on key metrics, industry benchmarks, and sector-specific considerations. Whether you're a founder looking to understand investor expectations or an investor seeking to make data-driven decisions, this guide will help you navigate the complex landscape of startup evaluation.</p>
+                
+                <h3>Key Takeaways</h3>
+                <ul>
+                    <li>Understanding the fundamental metrics that matter in early-stage investing</li>
+                    <li>Learning how to benchmark startups against industry standards</li>
+                    <li>Identifying red flags and potential risks in startup evaluation</li>
+                    <li>Developing a structured approach to due diligence</li>
+                </ul>
+            </div>
+
+            <!-- Additional sections will be added here -->
+            <div class="handbook-section" id="introduction">
+                <h2>Introduction</h2>
+                <p>Welcome to the VC Metrics Handbook. This guide is designed to help you understand the key metrics and frameworks used in evaluating early-stage startups in India. We'll cover everything from basic financial metrics to advanced industry-specific analysis.</p>
+            </div>
+
+            <!-- Mobile Toggle Button -->
+            <button class="handbook-toggle" aria-label="Toggle Handbook Navigation">📚</button>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="scripts/theme.js"></script>
+    <script src="scripts/back-to-top.js"></script>
+    <script src="scripts/main.js"></script>
+    <script>
+        // Handbook-specific JavaScript
+        const handbookToggle = document.querySelector('.handbook-toggle');
+        const handbookSidebar = document.querySelector('.handbook-sidebar');
+        const handbookNav = document.querySelector('.handbook-nav');
+
+        // Toggle sidebar on mobile
+        if (handbookToggle) {
+            handbookToggle.addEventListener('click', () => {
+                handbookSidebar.classList.toggle('active');
+            });
+        }
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.handbook-sidebar') && 
+                !e.target.closest('.handbook-toggle') && 
+                handbookSidebar.classList.contains('active')) {
+                handbookSidebar.classList.remove('active');
+            }
+        });
+
+        // Update active nav item on scroll
+        const sections = document.querySelectorAll('.handbook-section');
+        const navItems = document.querySelectorAll('.handbook-nav a');
+
+        const updateActiveNavItem = () => {
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href').slice(1) === currentSection) {
+                    item.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', updateActiveNavItem);
+        window.addEventListener('load', updateActiveNavItem);
+
+        // Smooth scroll for nav items
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = item.getAttribute('href').slice(1);
+                const targetSection = document.getElementById(targetId);
+                
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    // Close sidebar on mobile after clicking
+                    if (window.innerWidth <= 1024) {
+                        handbookSidebar.classList.remove('active');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

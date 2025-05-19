@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth Bubble - Decode Indian Startups</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav-container">
+        <div class="nav-content">
+            <a href="/" class="logo">
+                <img src="logo-dark.svg" alt="Growth Bubble Logo" class="logo-image">
+            </a>
+            <button class="menu-toggle" aria-label="Toggle Menu">
+                <span class="hamburger"></span>
+            </button>
+            <div class="nav-links">
+                <a href="handbook.html#executive-summary">Handbook</a>
+                <a href="#about">About Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="fade-in">Decode Indian Startups with Investor-Grade Insights</h1>
+            <p class="subheadline fade-in">A curated hub for learning, exploring, and investing with precision.</p>
+            <div class="cta-buttons fade-in">
+                <a href="handbook.html#executive-summary" class="btn btn-primary">Read Handbook</a>
+                <a href="#about" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Knowledge Hub Section -->
+    <section class="knowledge-hub">
+        <div class="container">
+            <h2>Knowledge Hub</h2>
+            
+            <!-- Search and Filter Section -->
+            <div class="knowledge-hub__search-filter">
+                <div class="search-container">
+                    <input type="text" id="knowledgeSearch" class="search-input" placeholder="Search resources...">
+                    <button class="search-button" aria-label="Search">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="filter-container">
+                    <div class="filter-tags" id="filterTags">
+                        <!-- Tags will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="knowledge-hub__grid" id="knowledgeGrid">
+                <!-- Cards will be dynamically inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Template for Card -->
+    <template id="cardTemplate">
+        <article class="knowledge-card">
+            <a href="#" class="knowledge-card__link">
+                <div class="knowledge-card__icon">
+                    <!-- Icon will be inserted here -->
+                </div>
+                <div class="knowledge-card__content">
+                    <h3 class="knowledge-card__title"></h3>
+                    <p class="knowledge-card__description"></p>
+                    <div class="knowledge-card__meta">
+                        <div class="knowledge-card__tags"></div>
+                        <time class="knowledge-card__date"></time>
+                    </div>
+                </div>
+                <div class="knowledge-card__status">
+                    <span class="status-badge published">Published</span>
+                    <span class="status-badge coming-soon">Coming Soon</span>
+                </div>
+            </a>
+        </article>
+    </template>
+
+    <!-- Coming Soon Modal -->
+    <div class="modal" id="comingSoonModal">
+        <div class="modal__overlay"></div>
+        <div class="modal__container">
+            <button class="modal__close" aria-label="Close modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="modal__content">
+                <div class="modal__icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </div>
+                <h3 class="modal__title">Coming Soon!</h3>
+                <p class="modal__message">This handbook is currently in development and will be released soon. Stay tuned for updates!</p>
+                <div class="modal__actions">
+                    <button class="btn btn-primary modal__button">Got it!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- What You'll Learn Section -->
+    <section class="learn-section">
+        <div class="container">
+            <h2>What You'll Learn</h2>
+            <div class="info-cards">
+                <div class="info-card">
+                    <div class="card-icon">📈</div>
+                    <h3>Industry KPIs</h3>
+                    <p>Comprehensive performance indicators across sectors</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">🌱</div>
+                    <h3>Market Trends</h3>
+                    <p>Insights into India's startup economy</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">💰</div>
+                    <h3>Investment Metrics</h3>
+                    <p>Tools to evaluate early-stage opportunities</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">🔍</div>
+                    <h3>Sector Analysis</h3>
+                    <p>Frameworks to benchmark vertical-specific growth</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Dive Deeper?</h2>
+            <p class="cta-text">Access our comprehensive handbook and start making data-driven investment decisions today.</p>
+            <div class="cta-button">
+                <a href="handbook.html#executive-summary" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="profile-image">
+                    <img src="profilePic.png" alt="Profile Picture">
+                </div>
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>I'm a passionate startup investor and analyst focused on the Indian startup ecosystem. With years of experience in venture capital and startup evaluation, I created Growth Bubble to share actionable insights and frameworks that help founders and investors make better decisions.</p>
+                    <div class="social-links">
+                        <a href="#" class="btn btn-social">LinkedIn</a>
+                        <a href="#" class="btn btn-social">Portfolio</a>
+                        <a href="#" class="btn btn-social">Notion</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="/" class="footer-logo"><img src="logo-dark.svg" alt="Growth Bubble Logo" class="logo-image-footer"></a>
+                    <p class="footer-tagline">Decode Indian Startups with Investor-Grade Insights</p>
+                </div>
+                <div class="footer-nav">
+                    <h4>Quick Links</h4>
+                    <a href="/">Home</a>
+                    <a href="handbook.html">Handbook</a>
+                    <a href="#about">About Me</a>
+                </div>
+                <div class="footer-nav">
+                    <h4>Connect</h4>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                            LinkedIn
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+                            </svg>
+                            Twitter
+                        </a>
+                        <a href="#" aria-label="Newsletter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            Newsletter
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/main.js"></script>
+    <script src="scripts/knowledge-hub.js"></script>
+    <script src="scripts/theme.js"></script>
+    <script src="scripts/back-to-top.js"></script>
+</body>
+</html> 
