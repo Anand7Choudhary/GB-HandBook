@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Study Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/handbook.css">
+    <link rel="stylesheet" href="styles/animations.css">
+</head>
+
+<body>
+    <!-- Top Navigation -->
+    <nav class="nav-container">
+        <div class="nav-content">
+            <a href="/" class="logo">
+                <img src="logo-dark.svg" alt="Growth Bubble Logo" class="logo-image">
+            </a>
+            <a href="javascript:void(0);" onclick="if (window.history.length > 1) { window.history.back(); } else { window.location.href = 'index.html'; }" class="back-button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back
+            </a>
+        </div>
+    </nav>
+
+
+    <div class="study-container">
+    <div id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <nav id="sidebar">
+        <div id="nav-container">
+            <!-- Navigation will be populated dynamically -->
+        </div>
+    </nav>
+
+        <main id="content">
+        <!-- Content will be populated dynamically -->
+        </main>
+    </div>
+
+    <button class="toggle-sidebar" aria-label="Toggle Navigation">
+        <div class="icon-wrapper">
+            <span></span>
+            <span></span>
+        </div>
+    </button>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+    </button>
+    
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" aria-label="Back to top"><span>↑</span></a>
+    
+    <!-- Scripts -->
+    <script src="scripts/theme.js"></script>
+    <script src="scripts/back-to-top.js"></script>
+
+    <style>
+        /* Theme Variables */
+        :root {
+            /* Light Theme Colors */
+            --color-primary: #2563eb;      /* Bright Blue - Main brand color */
+            --color-primary-dark: #1d4ed8; /* Darker Blue - Hover states */
+            --color-primary-light: #dbeafe; /* Light Blue - Backgrounds */
+            
+            /* Neutral Colors */
+            --color-text: #1e293b;         /* Dark Slate - Main text */
+            --color-text-light: #64748b;   /* Slate - Secondary text */
+            --color-background: #ffffff;   /* White - Main background */
+            --color-background-alt: #f8fafc; /* Slate 50 - Secondary background */
+            --color-border: #e2e8f0;       /* Slate 200 - Borders */
+            
+            /* Accent Colors */
+            --color-success: #059669;      /* Emerald - Success states */
+            --color-warning: #d97706;      /* Amber - Warning states */
+            --color-error: #dc2626;        /* Red - Error states */
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, #2563eb, #1d4ed8);
+            --gradient-subtle: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(37, 99, 235, 0.1));
+            --gradient-dark: linear-gradient(135deg, #030712, #0f172a);
+            --gradient-card: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(3, 7, 18, 0.95));
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Dark Theme Colors */
+        [data-theme="dark"] {
+            /* Primary Colors - More subtle, less blue */
+            --color-primary: #818cf8;      /* Indigo 400 - Softer primary */
+            --color-primary-dark: #6366f1; /* Indigo 500 - Darker for hover */
+            --color-primary-light: rgba(129, 140, 248, 0.12); /* Very subtle tint */
+            
+            /* Neutral Colors - True dark palette */
+            --color-text: #f8fafc;         /* Slate 50 - Bright text */
+            --color-text-light: #cbd5e1;   /* Slate 300 - Softer text */
+            --color-background: #030712;   /* Gray 950 - Deepest dark */
+            --color-background-alt: #0f172a; /* Slate 900 - Rich dark */
+            --color-border: #1e293b;       /* Slate 800 - Subtle borders */
+            
+            /* Accent Colors - Muted but visible */
+            --color-success: #22c55e;      /* Green 500 - Muted success */
+            --color-warning: #eab308;      /* Yellow 500 - Muted warning */
+            --color-error: #ef4444;        /* Red 500 - Muted error */
+            
+            /* Gradients - Darker, less blue */
+            --gradient-primary: linear-gradient(135deg, #818cf8, #6366f1);
+            --gradient-subtle: linear-gradient(135deg, rgba(129, 140, 248, 0.08), rgba(99, 102, 241, 0.12));
+            --gradient-dark: linear-gradient(135deg, #030712, #0f172a);
+            --gradient-card: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(3, 7, 18, 0.95));
+            
+            /* Shadows - Deeper, darker */
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Theme Toggle Button Styles */
+        .theme-toggle {
+            position: fixed;
+            top: 5rem;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            background: var(--color-background);
+            border: 2px solid var(--color-border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 99;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-primary);
+        }
+
+        .theme-toggle:active {
+            transform: translateY(0);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            color: var(--color-text);
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .theme-toggle:hover svg {
+            transform: rotate(30deg);
+        }
+
+        /* Dark mode specific styles */
+        [data-theme="dark"] .theme-toggle {
+            background: var(--color-background-alt);
+        }
+
+        [data-theme="dark"] .theme-toggle svg {
+            color: var(--color-primary);
+        }
+
+        /* Dark mode transitions */
+        [data-theme="dark"] * {
+            transition: background-color 0.3s ease,
+                        border-color 0.3s ease,
+                        color 0.3s ease,
+                        box-shadow 0.3s ease;
+        }
+
+        /* Dark mode specific styles for content */
+        [data-theme="dark"] body {
+            background: var(--gradient-dark);
+        }
+
+        [data-theme="dark"] #sidebar {
+            background: var(--gradient-card);
+            border-color: var(--color-border);
+        }
+
+        [data-theme="dark"] .nav-container {
+            background: linear-gradient(to bottom,
+                rgba(3, 7, 18, 0.98),
+                rgba(3, 7, 18, 0.95)
+            );
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid rgba(30, 41, 59, 0.2);
+        }
+
+        [data-theme="dark"] .nav-buttons {
+            background: var(--gradient-card);
+            border: 1px solid rgba(30, 41, 59, 0.2);
+        }
+
+        [data-theme="dark"] .nav-btn {
+            background: var(--gradient-primary);
+        }
+
+        [data-theme="dark"] .nav-btn:hover {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+        }
+
+        [data-theme="dark"] .back-button {
+            background: var(--gradient-card);
+            border: 1px solid rgba(30, 41, 59, 0.2);
+            color: var(--color-text-light);
+        }
+
+        [data-theme="dark"] .back-button:hover {
+            background: var(--gradient-primary);
+            border-color: transparent;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .theme-toggle {
+                top: 5rem;
+                right: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .theme-toggle {
+                top: 5rem;
+                right: 16px;
+            }
+        }
+    </style>
+
+    <script>
+        // Icon components
+        const icons = {
+            rocket: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-rocket"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>`,
+            star: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>`,
+            pin: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-pin"><path d="M12 17v5"></path><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6H9v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z"></path><polyline points="9 6 9 3 15 3 15 6"></polyline></svg>`,
+            note: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-note"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><line x1="10" y1="9" x2="8" y2="9"></line></svg>`,
+            book: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-book"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>`,
+            chevronDown: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><polyline points="6 9 12 15 18 9"></polyline></svg>`,
+            chevronRight: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`,
+            chevronLeft: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>`
+        };
+
+        // Global variables
+        let documentStructure = {
+            title: "",
+            sections: []
+        };
+
+        let currentSectionIndex = 0;
+        let currentSubsectionIndex = 0;
+
+        // Helper functions
+        function sanitizeId(id) {
+            return id.toLowerCase().replace(/[^a-z0-9]/g, '-');
+        }
+
+        function getRandomIcon() {
+            const iconKeys = Object.keys(icons);
+            const randomIndex = Math.floor(Math.random() * iconKeys.length);
+            // Exclude chevron icons from random selection
+            if (iconKeys[randomIndex].includes('chevron')) {
+                return icons.book;
+            }
+            return icons[iconKeys[randomIndex]];
+        }
+
+        // Initialize the document structure
+        async function initializeDocument(fileName) {
+            try {
+                const response = await fetch(fileName);
+                let html = await response.text();
+
+                // Text replacements
+                html = html.replace(/�/g, "'");
+                html = html.replace(/&(?=[a-zA-Z0-9#]{1,10};)/g, "&");
+
+                // Create a temporary div to parse the HTML
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = html;
+
+                // Extract document title (h1)
+                const h1Elements = tempDiv.querySelectorAll('h1');
+                if (h1Elements.length > 0) {
+                    documentStructure.title = h1Elements[0].textContent.trim();
+                    document.title = documentStructure.title;
+                }
+
+                // Extract sections (h2) and subsections (h3)
+                const h2Elements = tempDiv.querySelectorAll('h2');
+
+                h2Elements.forEach((h2, sectionIndex) => {
+                    const sectionId = `section-${sanitizeId(h2.textContent.trim())}`;
+                    h2.id = sectionId;
+
+                    const section = {
+                        id: sectionId,
+                        title: h2.textContent.trim(),
+                        content: '',
+                        subsections: []
+                    };
+
+                    // Get all content until the next h2
+                    let currentNode = h2.nextElementSibling;
+                    const sectionContentDiv = document.createElement('div');
+                    let currentSubsection = null;
+
+                    while (currentNode && currentNode.tagName !== 'H2') {
+                        if (currentNode.tagName === 'H3') {
+                            // If we were collecting section content, save it
+                            if (sectionContentDiv.children.length > 0) {
+                                section.content = sectionContentDiv.innerHTML;
+                                sectionContentDiv.innerHTML = ''; // Clear for next subsection
+                            }
+
+                            const subsectionId = `subsection-${sanitizeId(currentNode.textContent.trim())}`;
+                            currentNode.id = subsectionId;
+
+                            currentSubsection = {
+                                id: subsectionId,
+                                title: currentNode.textContent.trim(),
+                                content: '',
+                                parentSectionId: sectionId
+                            };
+
+                            // Start collecting subsection content
+                            let subsectionNode = currentNode.nextElementSibling;
+                            const subsectionContentDiv = document.createElement('div');
+
+                            while (subsectionNode && subsectionNode.tagName !== 'H2' && subsectionNode.tagName !== 'H3') {
+                                const clonedNode = subsectionNode.cloneNode(true);
+                                subsectionContentDiv.appendChild(clonedNode);
+                                subsectionNode = subsectionNode.nextElementSibling;
+                            }
+
+                            currentSubsection.content = subsectionContentDiv.innerHTML;
+                            section.subsections.push(currentSubsection);
+                            currentNode = subsectionNode;
+                            continue;
+                        }
+
+                        // Only add to section content if we're not in a subsection
+                        if (!currentSubsection) {
+                            const clonedNode = currentNode.cloneNode(true);
+                                sectionContentDiv.appendChild(clonedNode);
+                        }
+
+                        currentNode = currentNode.nextElementSibling;
+                    }
+
+                    // Save any remaining section content
+                    if (sectionContentDiv.children.length > 0) {
+                    section.content = sectionContentDiv.innerHTML;
+                    }
+
+                    documentStructure.sections.push(section);
+                });
+
+                // Build the navigation and content
+                buildNavigation();
+                buildContent();
+
+                // Show the first section by default
+                if (documentStructure.sections.length > 0) {
+                    const firstSection = documentStructure.sections[0];
+                    if (firstSection.subsections.length > 0) {
+                        showSubsection(firstSection.subsections[0].id, firstSection.id);
+                    } else {
+                        showSection(firstSection.id);
+                    }
+                }
+
+                // Hide loader
+                document.getElementById('loader').style.display = 'none';
+
+            } catch (error) {
+                console.error('Error loading document:', error);
+                alert('Error loading document. Please check the file path and try again.');
+                document.getElementById('loader').style.display = 'none';
+            }
+        }
+
+        // Build the navigation menu
+        function buildNavigation() {
+            const navContainer = document.getElementById('nav-container');
+            navContainer.innerHTML = '';
+
+            // Create and add the document title to the sidebar
+            const titleDiv = document.createElement('div');
+            titleDiv.className = 'document-title';
+            const titleSpan = document.createElement('span');
+            titleSpan.id = 'main-title';
+            titleSpan.textContent = documentStructure.title;
+            titleDiv.appendChild(titleSpan);
+
+            const sidebar = document.getElementById('sidebar');
+            sidebar.insertBefore(titleDiv, navContainer);
+
+            documentStructure.sections.forEach((section, index) => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'nav-section';
+                sectionDiv.style.setProperty('--index', index);
+
+                const sectionTitleDiv = document.createElement('div');
+                sectionTitleDiv.className = 'nav-section-title';
+                sectionTitleDiv.setAttribute('data-section-id', section.id);
+
+                // Only add chevron icon if section has subsections
+                const hasSubsections = section.subsections && section.subsections.length > 0;
+                sectionTitleDiv.innerHTML = `
+                    <span>${section.title}</span>
+                    ${hasSubsections ? `<span class="icon">${icons.chevronDown}</span>` : ''}
+                `;
+
+                const subsectionsDiv = document.createElement('div');
+                subsectionsDiv.className = 'nav-subsections';
+
+                // Update the section click handler
+                if (hasSubsections) {
+                sectionTitleDiv.addEventListener('click', (e) => {
+                    if (e.target.closest('.nav-subsection')) return;
+
+                        // Toggle the dropdown state
+                        sectionTitleDiv.classList.toggle('toggle-active');
+                        subsectionsDiv.classList.toggle('toggle-active');
+                    });
+                    } else {
+                    // For sections without subsections
+                    sectionTitleDiv.addEventListener('click', () => {
+                        // If this section is already active, do nothing
+                        if (sectionTitleDiv.classList.contains('active')) {
+                            return;
+                        }
+
+                        // Set active state for styling
+                        sectionTitleDiv.classList.add('active');
+                        // Show the section content
+                    showSection(section.id);
+                        // Close sidebar on mobile only for non-dropdown sections
+                        if (window.innerWidth <= 1024) {
+                            const sidebar = document.getElementById('sidebar');
+                            if (sidebar.classList.contains('active')) {
+                                sidebar.classList.remove('active');
+                                document.querySelector('.sidebar-backdrop')?.classList.remove('active');
+                                document.querySelector('.toggle-sidebar')?.classList.remove('active');
+                            }
+                        }
+                    });
+                }
+
+                // Add subsections if they exist
+                if (hasSubsections) {
+                    section.subsections.forEach((subsection, subIndex) => {
+                    const subsectionDiv = document.createElement('div');
+                    subsectionDiv.className = 'nav-subsection';
+                    subsectionDiv.setAttribute('data-subsection-id', subsection.id);
+                        subsectionDiv.style.setProperty('--index', subIndex);
+                    subsectionDiv.textContent = subsection.title;
+
+                    subsectionDiv.addEventListener('click', (e) => {
+                        e.stopPropagation();
+
+                            // If this subsection is already active, do nothing
+                            if (subsectionDiv.classList.contains('active')) {
+                                return;
+                            }
+
+                            // First, ensure the parent section's dropdown is open
+                            if (!sectionTitleDiv.classList.contains('toggle-active')) {
+                                sectionTitleDiv.classList.add('toggle-active');
+                                subsectionsDiv.classList.add('toggle-active');
+                            }
+
+                            // Remove active class from all sections and subsections
+                            document.querySelectorAll('.nav-section-title').forEach(title => {
+                                title.classList.remove('active');
+                            });
+                            document.querySelectorAll('.nav-subsection').forEach(sub => {
+                                sub.classList.remove('active');
+                            });
+
+                            // Add active class to clicked subsection and its parent section
+                            subsectionDiv.classList.add('active');
+                            sectionTitleDiv.classList.add('active');
+
+                            // Show the subsection content
+                        showSubsection(subsection.id, section.id);
+
+                            // Close sidebar on mobile only when clicking a subsection
+                            if (window.innerWidth <= 1024) {
+                                const sidebar = document.getElementById('sidebar');
+                                if (sidebar.classList.contains('active')) {
+                                    sidebar.classList.remove('active');
+                                    document.querySelector('.sidebar-backdrop')?.classList.remove('active');
+                                    document.querySelector('.toggle-sidebar')?.classList.remove('active');
+                                }
+                            }
+                    });
+
+                    subsectionsDiv.appendChild(subsectionDiv);
+                });
+                }
+
+                sectionDiv.appendChild(sectionTitleDiv);
+                sectionDiv.appendChild(subsectionsDiv);
+                navContainer.appendChild(sectionDiv);
+            });
+        }
+
+        // Style various elements for better appearance
+        function styleElements() {
+            const tables = document.querySelectorAll('table');
+            tables.forEach(table => {
+                if (!table.classList.contains('styled')) {
+                    table.classList.add('styled');
+
+                    // Create table card wrapper
+                    const tableCard = document.createElement('div');
+                    tableCard.className = 'table-card';
+
+                    // Create table header
+                    const tableHeader = document.createElement('div');
+                    tableHeader.className = 'table-card-header';
+
+                    // Create table title (using the first th text or a default)
+                    const tableTitle = document.createElement('h3');
+                    tableTitle.className = 'table-card-title';
+                    const firstTh = table.querySelector('th');
+                    tableTitle.textContent = firstTh ? firstTh.textContent : 'Table';
+
+                    // Create table content wrapper
+                    const tableContent = document.createElement('div');
+                    tableContent.className = 'table-card-content';
+
+                    // Assemble the card
+                    tableHeader.appendChild(tableTitle);
+                    tableCard.appendChild(tableHeader);
+
+                    // Move the table to the content wrapper
+                    const tableParent = table.parentNode;
+                    tableContent.appendChild(table);
+                    tableCard.appendChild(tableContent);
+
+                    // Insert the card before the original table's position
+                    tableParent.insertBefore(tableCard, tableParent.firstChild);
+                }
+            });
+        }
+
+        // Build content divs
+        function buildContent() {
+            const contentContainer = document.getElementById('content');
+            contentContainer.innerHTML = ''; // Clear existing content
+
+            // Create section divs
+            documentStructure.sections.forEach(section => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'section';
+                sectionDiv.id = section.id;
+
+                // Add rocket icon to section header
+                const rocketColors = ['#3b82f6', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b'];
+                const randomColor = rocketColors[Math.floor(Math.random() * rocketColors.length)];
+
+                // Only add section content if there are no subsections
+                const sectionContent = section.subsections.length === 0 ? section.content : '';
+
+                sectionDiv.innerHTML = `
+                    <h2 class="section-header">
+                        <svg class="rocket-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="${randomColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path>
+                            <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path>
+                            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path>
+                            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path>
+                        </svg>
+                        ${section.title}
+                    </h2>
+                    ${sectionContent ? `<div class="section-content">${sectionContent}</div>` : ''}
+                `;
+
+                // Create subsection divs
+                section.subsections.forEach(subsection => {
+                    const subsectionDiv = document.createElement('div');
+                    subsectionDiv.className = 'subsection';
+                    subsectionDiv.id = subsection.id;
+
+                    subsectionDiv.innerHTML = `
+                        <h3 class="subsection-header">${subsection.title}</h3>
+                        <div class="subsection-content">${subsection.content}</div>
+                    `;
+
+                    sectionDiv.appendChild(subsectionDiv);
+                });
+
+                // Add navigation buttons
+                const navButtonsDiv = document.createElement('div');
+                navButtonsDiv.className = 'nav-buttons';
+                navButtonsDiv.innerHTML = `
+                    <button id="prev-btn-${section.id}" class="nav-btn prev-btn">
+                        <span class="icon">${icons.chevronLeft}</span>
+                        <span class="btn-text">Previous</span>
+                    </button>
+                    <button id="next-btn-${section.id}" class="nav-btn next-btn">
+                        <span class="btn-text">Next</span>
+                        <span class="icon">${icons.chevronRight}</span>
+                    </button>
+                `;
+
+                sectionDiv.appendChild(navButtonsDiv);
+                contentContainer.appendChild(sectionDiv);
+            });
+
+            // Process tables after content is built
+            console.log('Content built, waiting for DOM update...');
+            setTimeout(() => {
+                console.log('Starting table processing...');
+                processTableContent();
+            }, 100);
+        }
+
+        // Update processTableContent function with clear steps
+        function processTableContent() {
+            console.log('=== Starting Table Processing ===');
+            
+            // Find all tables
+            const tables = document.querySelectorAll('table');
+            console.log(`Found ${tables.length} tables in the document`);
+
+            tables.forEach((table, tableIndex) => {
+                console.log(`\n=== Processing Table ${tableIndex + 1} ===`);
+                console.log('Table HTML:', table.outerHTML);
+                
+                try {
+                    // Step 1: Create container for cards
+                    console.log('Step 1: Creating cards container');
+                    const cardsContainer = document.createElement('div');
+                    cardsContainer.className = 'table-cards-container';
+
+                    // Step 2: Extract headers and validate table structure
+                    console.log('Step 2: Extracting headers');
+                    let headers = [];
+                    const firstRow = table.querySelector('tr');
+                    
+                    if (firstRow) {
+                        // Try to get headers from th elements first
+                        const thElements = firstRow.querySelectorAll('th');
+                        if (thElements.length > 0) {
+                            headers = Array.from(thElements).map(th => th.textContent.trim());
+                            console.log('Headers found in th elements:', headers);
+                        } else {
+                            // If no th elements, use first row td elements as headers
+                            const tdElements = firstRow.querySelectorAll('td');
+                            headers = Array.from(tdElements).map(td => td.textContent.trim());
+                            console.log('Using first row td elements as headers:', headers);
+                        }
+                    }
+
+                    if (headers.length === 0) {
+                        console.warn('No headers found, using default column names');
+                        // Get number of columns from first data row
+                        const firstDataRow = table.querySelector('tr:nth-child(2)');
+                        if (firstDataRow) {
+                            const numColumns = firstDataRow.querySelectorAll('td').length;
+                            headers = Array.from({length: numColumns}, (_, i) => `Column ${i + 1}`);
+                        }
+                    }
+
+                    // Step 3: Get all data rows
+                    console.log('Step 3: Getting data rows');
+                    const rows = Array.from(table.querySelectorAll('tr'));
+                    const dataRows = headers.length > 0 ? rows.slice(1) : rows; // Skip header row if headers exist
+                    console.log(`Found ${dataRows.length} data rows`);
+
+                    // Step 4: Process each row into a card
+                    console.log('Step 4: Creating cards from rows');
+                    dataRows.forEach((row, rowIndex) => {
+                        console.log(`\nProcessing row ${rowIndex + 1}:`);
+                        console.log('Row HTML:', row.outerHTML);
+                        
+                        // Create card element
+                        const card = document.createElement('div');
+                        card.className = 'table-card-item neuromorphic';
+
+                        // Get cells from current row
+                        const cells = row.querySelectorAll('td');
+                        console.log(`Row ${rowIndex + 1} has ${cells.length} cells`);
+
+                        // Build card content
+                        let cardContent = '';
+                        let hasContent = false;
+
+                        cells.forEach((cell, cellIndex) => {
+                            const header = headers[cellIndex] || `Column ${cellIndex + 1}`;
+                            const cellText = cell.textContent.trim();
+                            const cellHTML = cell.innerHTML.trim();
+                            
+                            console.log(`Cell ${cellIndex + 1} (${header}):`, {
+                                text: cellText,
+                                html: cellHTML,
+                                isEmpty: !cellText && !cellHTML
+                            });
+
+                            if (cellText || cellHTML) {
+                                hasContent = true;
+                                // Process cell content
+                                let content = '';
+                                if (cellText.includes(';')) {
+                                    // Split by semicolons and create paragraphs
+                                    const items = cellText.split(';')
+                                        .map(item => item.trim())
+                                        .filter(Boolean);
+                                    content = items.map(item => `<p>${item}</p>`).join('');
+                                } else {
+                                    // Use HTML content if available, otherwise use text
+                                    content = cellHTML || `<p>${cellText}</p>`;
+                                }
+
+                                // Add to card content
+                                cardContent += `
+                                    <div class="table-card-header">${header}</div>
+                                    <div class="table-card-content">${content}</div>
+                                    ${cellIndex < cells.length - 1 ? '<div class="table-card-divider"></div>' : ''}
+                                `;
+                            }
+                        });
+
+                        // Add card to container if it has content
+                        if (hasContent) {
+                            card.innerHTML = cardContent;
+                            cardsContainer.appendChild(card);
+                            console.log(`Card ${rowIndex + 1} created successfully`);
+                        } else {
+                            console.log(`Skipping row ${rowIndex + 1} - no content`);
+                        }
+                    });
+
+                    // Step 5: Replace table with cards
+                    console.log('\nStep 5: Replacing table with cards');
+                    const tableParent = table.parentNode;
+                    
+                    if (cardsContainer.children.length > 0) {
+                        if (tableParent.classList.contains('table-card-content')) {
+                            console.log('Replacing table inside existing card container');
+                            tableParent.replaceChild(cardsContainer, table);
+                        } else {
+                            console.log('Creating new card wrapper');
+                            const tableCard = document.createElement('div');
+                            tableCard.className = 'table-card';
+                            
+                            const tableHeader = document.createElement('div');
+                            tableHeader.className = 'table-card-header';
+                            
+                            const tableTitle = document.createElement('h3');
+                            tableTitle.className = 'table-card-title';
+                            tableTitle.textContent = headers[0] || 'Table';
+                            
+                            tableHeader.appendChild(tableTitle);
+                            tableCard.appendChild(tableHeader);
+                            tableCard.appendChild(cardsContainer);
+                            
+                            tableParent.replaceChild(tableCard, table);
+                        }
+                        console.log(`Table ${tableIndex + 1} processing completed successfully`);
+                    } else {
+                        console.warn(`No cards were created for table ${tableIndex + 1} - keeping original table`);
+                    }
+                    
+                } catch (error) {
+                    console.error(`Error processing table ${tableIndex + 1}:`, error);
+                    console.error('Table HTML:', table.outerHTML);
+                }
+            });
+
+            console.log('\n=== Table Processing Complete ===');
+        }
+
+        // Update navigation functions
+        function navigatePrevious() {
+            const sections = documentStructure.sections;
+            const currentSection = sections[currentSectionIndex];
+
+            if (currentSubsectionIndex > 0) {
+                // Go to previous subsection in the same section
+                const prevSubsection = currentSection.subsections[currentSubsectionIndex - 1];
+                showSubsection(prevSubsection.id, currentSection.id);
+            } else if (currentSubsectionIndex === 0) {
+                // If we're at the first subsection, check the parent section
+                if (currentSectionIndex > 0) {
+                    const prevSection = sections[currentSectionIndex - 1];
+
+                    // Check if previous section has subsections
+                    if (prevSection.subsections.length > 0) {
+                        // Go to the last subsection of the previous section
+                        const lastSubsection = prevSection.subsections[prevSection.subsections.length - 1];
+                        showSubsection(lastSubsection.id, prevSection.id);
+                    } else {
+                        // If no subsections, show the section directly
+                        showSection(prevSection.id);
+                    }
+                } else {
+                    // If we're at the first section, just show it
+                    showSection(currentSection.id);
+                }
+            } else if (currentSectionIndex > 0) {
+                // Currently on a section, going to previous section
+                const prevSection = sections[currentSectionIndex - 1];
+
+                if (prevSection.subsections.length > 0) {
+                    // If previous section has subsections, show the last one
+                    const lastSubsection = prevSection.subsections[prevSection.subsections.length - 1];
+                    showSubsection(lastSubsection.id, prevSection.id);
+                } else {
+                    // If no subsections, show the section directly
+                    showSection(prevSection.id);
+                }
+            }
+        }
+
+        function navigateNext() {
+            const sections = documentStructure.sections;
+            const currentSection = sections[currentSectionIndex];
+
+            if (currentSubsectionIndex === -1) {
+                // Currently viewing a section
+                if (currentSection.subsections.length > 0) {
+                    // If current section has subsections, show the first one
+                    const firstSubsection = currentSection.subsections[0];
+                    showSubsection(firstSubsection.id, currentSection.id);
+                } else if (currentSectionIndex < sections.length - 1) {
+                    // If no subsections, check the next section
+                    const nextSection = sections[currentSectionIndex + 1];
+
+                    if (nextSection.subsections.length > 0) {
+                        // If next section has subsections, show the first one
+                        const firstSubsection = nextSection.subsections[0];
+                        showSubsection(firstSubsection.id, nextSection.id);
+                    } else {
+                        // If no subsections, show the section directly
+                        showSection(nextSection.id);
+                    }
+                }
+            } else {
+                // Currently viewing a subsection
+                if (currentSubsectionIndex < currentSection.subsections.length - 1) {
+                    // Go to next subsection in the same section
+                    const nextSubsection = currentSection.subsections[currentSubsectionIndex + 1];
+                    showSubsection(nextSubsection.id, currentSection.id);
+                } else if (currentSectionIndex < sections.length - 1) {
+                    // At last subsection, check the next section
+                    const nextSection = sections[currentSectionIndex + 1];
+
+                    if (nextSection.subsections.length > 0) {
+                        // If next section has subsections, show the first one
+                        const firstSubsection = nextSection.subsections[0];
+                        showSubsection(firstSubsection.id, nextSection.id);
+                    } else {
+                        // If no subsections, show the section directly
+                        showSection(nextSection.id);
+                    }
+                }
+            }
+        }
+
+        // Update showSection function to handle dropdown sections
+        function showSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (!section) return;
+
+            // Check if this section is already active
+            if (section.classList.contains('active')) {
+                return;
+            }
+
+            const sectionData = documentStructure.sections.find(s => s.id === sectionId);
+            if (!sectionData) return;
+
+            // If section has subsections, show the first one instead
+            if (sectionData.subsections.length > 0) {
+                const firstSubsection = sectionData.subsections[0];
+                showSubsection(firstSubsection.id, sectionId);
+                return;
+            }
+
+            // Hide all sections and subsections
+            document.querySelectorAll('.section, .subsection').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show the selected section
+                section.classList.add('active');
+
+            // Update navigation state
+                document.querySelectorAll('.nav-section-title').forEach(navSection => {
+                    navSection.classList.remove('active');
+                });
+                document.querySelectorAll('.nav-subsection').forEach(navSubsection => {
+                    navSubsection.classList.remove('active');
+                });
+
+            // Update active states in navigation
+                const navSection = document.querySelector(`.nav-section-title[data-section-id="${sectionId}"]`);
+                if (navSection) {
+                    navSection.classList.add('active');
+                }
+
+                // Update current indices
+                currentSectionIndex = documentStructure.sections.findIndex(s => s.id === sectionId);
+            currentSubsectionIndex = -1;
+
+            // Update navigation buttons
+                updateNavigationButtons();
+
+                // Scroll to top
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Update showSubsection function
+        function showSubsection(subsectionId, parentSectionId) {
+            const subsection = document.getElementById(subsectionId);
+            if (!subsection) return;
+
+            // Check if this subsection is already active
+            if (subsection.classList.contains('active')) {
+                return;
+            }
+
+            // Hide all sections and subsections
+            document.querySelectorAll('.section, .subsection').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show parent section and subsection
+            const section = document.getElementById(parentSectionId);
+            if (section) {
+                section.classList.add('active');
+                subsection.classList.add('active');
+            }
+
+            // Update navigation state
+            document.querySelectorAll('.nav-section-title').forEach(navSection => {
+                navSection.classList.remove('active');
+            });
+                document.querySelectorAll('.nav-subsection').forEach(navSubsection => {
+                    navSubsection.classList.remove('active');
+                });
+
+            // Update active states in navigation
+            const navSection = document.querySelector(`.nav-section-title[data-section-id="${parentSectionId}"]`);
+                const navSubsection = document.querySelector(`.nav-subsection[data-subsection-id="${subsectionId}"]`);
+
+            if (navSection) {
+                navSection.classList.add('active');
+                navSection.classList.add('toggle-active');
+                const subsectionsDiv = navSection.nextElementSibling;
+                if (subsectionsDiv) {
+                    subsectionsDiv.classList.add('toggle-active');
+                }
+            }
+
+                if (navSubsection) {
+                    navSubsection.classList.add('active');
+            }
+
+            // Update current indices
+            currentSectionIndex = documentStructure.sections.findIndex(s => s.id === parentSectionId);
+            if (currentSectionIndex !== -1) {
+                currentSubsectionIndex = documentStructure.sections[currentSectionIndex].subsections.findIndex(
+                    s => s.id === subsectionId
+                );
+            }
+
+            // Update navigation buttons
+                        updateNavigationButtons();
+
+                // Scroll subsection into view
+                subsection.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+        }
+
+        // Update navigation buttons event listeners
+        function updateNavigationButtons() {
+            const sections = documentStructure.sections;
+            const currentSectionId = sections[currentSectionIndex].id;
+            const prevBtn = document.getElementById(`prev-btn-${currentSectionId}`);
+            const nextBtn = document.getElementById(`next-btn-${currentSectionId}`);
+
+            if (prevBtn) {
+                prevBtn.onclick = (e) => {
+                    e.preventDefault();
+                    navigatePrevious();
+                };
+            }
+
+            if (nextBtn) {
+                nextBtn.onclick = (e) => {
+                    e.preventDefault();
+                    navigateNext();
+                };
+            }
+
+            // Update button states
+            if (currentSubsectionIndex === -1) {
+                // Currently viewing a section
+                prevBtn.disabled = currentSectionIndex === 0;
+                const hasSubsections = sections[currentSectionIndex].subsections.length > 0;
+                const isLastSection = currentSectionIndex === sections.length - 1;
+                nextBtn.disabled = isLastSection && !hasSubsections;
+            } else {
+                // Currently viewing a subsection
+                const currentSection = sections[currentSectionIndex];
+                prevBtn.disabled = currentSectionIndex === 0 && currentSubsectionIndex === 0;
+                const isLastSubsection = currentSubsectionIndex === currentSection.subsections.length - 1;
+                const isLastSection = currentSectionIndex === sections.length - 1;
+                nextBtn.disabled = isLastSection && isLastSubsection;
+            }
+        }
+
+        /* Toggle sidebar for mobile view */
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.querySelector('.toggle-sidebar');
+            const backdrop = document.querySelector('.sidebar-backdrop') || createBackdrop();
+
+            if (!sidebar.classList.contains('active')) {
+                // Opening animation
+                requestAnimationFrame(() => {
+                    backdrop.classList.add('active');
+                    sidebar.classList.add('active');
+                    toggleBtn.classList.add('active');
+                });
+            } else {
+                // Closing animation
+                sidebar.classList.remove('active');
+                toggleBtn.classList.remove('active');
+                backdrop.classList.remove('active');
+            }
+        }
+
+        // Create backdrop element
+        function createBackdrop() {
+            const backdrop = document.createElement('div');
+            backdrop.className = 'sidebar-backdrop';
+            document.body.appendChild(backdrop);
+
+            // Close sidebar when clicking backdrop
+            backdrop.addEventListener('click', (e) => {
+                if (e.target === backdrop) {
+                    const sidebar = document.getElementById('sidebar');
+                    if (sidebar.classList.contains('active')) {
+                        toggleSidebar();
+                    }
+                }
+            });
+
+            return backdrop;
+        }
+
+        // Initialize with file name
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.innerHTML = '<div id="nav-container"></div>';
+
+            const fileName = 'VcHandbook1.htm';
+            initializeDocument(fileName);
+
+            // Add event listener for the toggle sidebar button
+            const toggleSidebarBtn = document.querySelector('.toggle-sidebar');
+            if (toggleSidebarBtn) {
+                toggleSidebarBtn.onclick = function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleSidebar();
+                };
+
+                // Create backdrop on mobile
+                if (window.innerWidth <= 1024) {
+                    createBackdrop();
+                }
+
+                // Update on resize
+                window.addEventListener('resize', function () {
+                    const isMobile = window.innerWidth <= 1024;
+                    toggleSidebarBtn.style.display = isMobile ? 'flex' : 'none';
+
+                    if (isMobile) {
+                        if (!document.querySelector('.sidebar-backdrop')) {
+                            createBackdrop();
+                        }
+                    } else {
+                        sidebar.classList.remove('active');
+                        const backdrop = document.querySelector('.sidebar-backdrop');
+                        if (backdrop) {
+                            backdrop.remove();
+                        }
+                    }
+                });
+            }
+        });
+
+        // Add window resize handler for button visibility
+        window.addEventListener('resize', function () {
+            const navButtons = document.querySelector('.nav-buttons');
+            if (navButtons) {
+                const isMobile = window.innerWidth <= 768;
+                navButtons.style.display = isMobile ? 'flex' : 'none';
+            }
+        });
+
+        // Add this at the beginning of your script section
+        // Theme Toggle Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.querySelector('.theme-toggle');
+            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+            
+            // Set initial theme
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) {
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            } else if (prefersDarkScheme.matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+
+            // Theme toggle click handler
+            if (themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    const currentTheme = document.documentElement.getAttribute('data-theme');
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    
+                    document.documentElement.setAttribute('data-theme', newTheme);
+                    localStorage.setItem('theme', newTheme);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
