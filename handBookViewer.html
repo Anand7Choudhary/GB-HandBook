@@ -410,6 +410,9 @@
                 z-index: 100;
                 box-shadow: none;
             }
+            .nav-content{
+                padding:7px;
+            }
         }
 
 
@@ -527,7 +530,7 @@
                 padding: 0.5rem 0.875rem;
                 font-size: 0.9rem;
                 border-radius: 10px;
-                transform: translateX(-30px);
+                transform: translateX(-75px);
             }
 
             .back-button svg {
@@ -579,7 +582,18 @@
         }
         @media (max-width: 480px){
             .nav-buttons{
-                bottom:1.5rem;
+                bottom:2rem;
+                width: fit-content;
+                padding:10px;
+                gap: 20px;
+                max-width: fit-content;
+                justify-content: space-between;
+            }
+            .nav-btn{
+                padding:5px;
+                padding-left: 15px;
+                padding-right: 15px;
+                gap: 0.5rem
             }
             .back-to-top{
                 right: 2.2rem;
