@@ -435,47 +435,25 @@
             font-weight: 500;
             font-size: 1rem;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(255, 255, 255, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--color-text);
+            background-color: #0057bb;
+            border: none;
+            color: white;
             text-decoration: none;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.1);
             letter-spacing: -0.01em;
             position: relative;
             overflow: hidden;
-        }
-
-        .back-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, 
-                rgba(255, 255, 255, 0.1),
-                rgba(255, 255, 255, 0.05)
-            );
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            cursor: pointer;
         }
 
         .back-button:hover {
-            transform: translateY(-2px);
+            background-color: #004a9e;
+            color: white;
             box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15);
-            border-color: rgba(37, 99, 235, 0.3);
-            background: rgba(255, 255, 255, 0.8);
-            color: var(--color-primary);
-        }
-
-        .back-button:hover::before {
-            opacity: 1;
         }
 
         .back-button:active {
-            transform: translateY(0);
+            background-color: #003d82;
         }
 
         .back-button svg {
@@ -485,31 +463,20 @@
             stroke-width: 2;
         }
 
-        .back-button:hover svg {
-            transform: translateX(-3px);
-        }
-
-        /* Dark Theme Back Button */
+        /* Remove dark theme specific styles since we're using a solid color */
         [data-theme="dark"] .back-button {
-            background: var(--gradient-card);
-            border: 1px solid rgba(76, 115, 178, 0.3);
-            color: #e2e8f0;
+            background-color: #0057bb;
+            color: white;
             box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.2);
         }
 
         [data-theme="dark"] .back-button:hover {
-            background: linear-gradient(135deg,
-                rgba(15, 23, 42, 0.95),
-                rgba(3, 7, 18, 1)
-            );
-            border-color: rgba(129, 140, 248, 0.3);
-            color: #5aa7ff;
-            box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+            background-color: #004a9e;
+            color: white;
         }
 
-        [data-theme="dark"] .back-button svg {
-            color: #5aa7ff;
-            filter: drop-shadow(0 0 8px rgba(90, 167, 255, 0.2));
+        [data-theme="dark"] .back-button:active {
+            background-color: #003d82;
         }
 
         /* Responsive Styles */
@@ -530,7 +497,8 @@
                 padding: 0.5rem 0.875rem;
                 font-size: 0.9rem;
                 border-radius: 10px;
-                transform: translateX(-75px);
+                transform: none;
+                right:78px;
             }
 
             .back-button svg {
@@ -539,15 +507,9 @@
             }
         }
 
-        /* Animation for button press */
-        @keyframes buttonPress {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.98); }
-            100% { transform: scale(1); }
-        }
-
+        /* Remove the button press animation since we're using a solid color */
         .back-button:active {
-            animation: buttonPress 0.2s ease;
+            transform: none;
         }
 
         .nav-btn, .back-button{
@@ -1541,6 +1503,21 @@
 
         // Initialize theme when DOM is loaded
         document.addEventListener('DOMContentLoaded', initializeTheme);
+
+        // Update the back button click handler
+        document.addEventListener('DOMContentLoaded', function() {
+            const backButton = document.querySelector('.back-button');
+            if (backButton) {
+                backButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (window.history.length > 1) {
+                        window.history.back();
+                    } else {
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+        });
     </script>
 </body>
 
