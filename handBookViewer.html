@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/handbook.css">
     <link rel="stylesheet" href="styles/animations.css">
+    <!-- Add favicon -->
+    <link rel="icon" href="/iconLogo.svg" type="image/svg+xml">
 </head>
 
 <body>
@@ -21,7 +23,7 @@
             <a href="/" class="logo">
                 <img src="logo-dark.svg" alt="Growth Bubble Logo" class="logo-image">
             </a>
-            <a href="javascript:void(0);" onclick="handleBackNavigation()" class="back-button">
+            <a href="https://handbook.growthbubble.site" class="back-button" id="backButton">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M19 12H5M12 19l-7-7 7-7"/>
                 </svg>
@@ -1504,32 +1506,38 @@
         // Initialize theme when DOM is loaded
         document.addEventListener('DOMContentLoaded', initializeTheme);
 
-        // Back button navigation handler
-        function handleBackNavigation() {
-            // Check if we're on the handbook.growthbubble.site domain
-            const isHandbookDomain = window.location.hostname === 'handbook.growthbubble.site';
-            
-            if (isHandbookDomain) {
-                // If we're on the handbook domain, go to the main site
-                window.location.href = 'https://growthbubble.site';
-            } else if (window.history.length > 1) {
-                // If we have history, go back
-                window.history.back();
-            } else {
-                // Fallback to handbook site
-                window.location.href = 'https://handbook.growthbubble.site';
-            }
-        }
-
-        // Initialize back button when DOM is loaded
+        // Update the back button click handler
         document.addEventListener('DOMContentLoaded', function() {
-            const backButton = document.querySelector('.back-button');
+            const backButton = document.getElementById('backButton');
             if (backButton) {
-                // Remove the inline onclick and add event listener
-                backButton.removeAttribute('onclick');
                 backButton.addEventListener('click', function(e) {
                     e.preventDefault();
-                    handleBackNavigation();
+                    
+                    // Check if we're on the live site
+                    const isLiveSite = window.location.hostname.includes('growthbubble.site');
+                    
+                    // Get the referrer
+                    const referrer = document.referrer;
+                    
+                    // Check if the referrer is from our domain
+                    const isFromOurDomain = referrer.includes('growthbubble.site');
+                    
+                    if (isLiveSite) {
+                        if (isFromOurDomain && window.history.length > 1) {
+                            // If we came from our domain and have history, go back
+                            window.history.back();
+                        } else {
+                            // Otherwise, go to the handbook homepage
+                            window.location.href = 'https://handbook.growthbubble.site';
+                        }
+                    } else {
+                        // Local environment behavior
+                        if (window.history.length > 1) {
+                            window.history.back();
+                        } else {
+                            window.location.href = 'index.html';
+                        }
+                    }
                 });
             }
         });
