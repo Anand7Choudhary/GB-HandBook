@@ -60,19 +60,27 @@ class ThemeManager {
         const currentTheme = this.getStoredTheme() || 'light';
         const logos = document.querySelectorAll('.logo-image, .logo-image-footer');
         
-        logos.forEach(logo => {
-            if (currentTheme === 'dark') {
-                logo.src = logo.src.replace('logo-dark.svg', 'logo.svg');
-            } else {
-                logo.src = logo.src.replace('logo.svg', 'logo-dark.svg');
-            }
-        });
+        // Only update logos if they exist
+        if (logos.length > 0) {
+            logos.forEach(logo => {
+                if (logo && logo.src) {
+                    if (currentTheme === 'dark') {
+                        logo.src = logo.src.replace('logo-dark.svg', 'logo.svg');
+                    } else {
+                        logo.src = logo.src.replace('logo.svg', 'logo-dark.svg');
+                    }
+                }
+            });
+        }
 
+        // Only update profile picture if it exists
         const profilePic = document.querySelector('.profile-image img');
-        if(currentTheme === 'dark'){
-            profilePic.src = profilePic.src.replace('profilePic.png', 'profilePic-dark.png');
-        }else{
-            profilePic.src = profilePic.src.replace('profilePic-dark.png', 'profilePic.png');
+        if (profilePic && profilePic.src) {
+            if (currentTheme === 'dark') {
+                profilePic.src = profilePic.src.replace('profilePic.png', 'profilePic-dark.png');
+            } else {
+                profilePic.src = profilePic.src.replace('profilePic-dark.png', 'profilePic.png');
+            }
         }
     }
 }
