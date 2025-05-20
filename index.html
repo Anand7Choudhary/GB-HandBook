@@ -35,7 +35,7 @@
             <h1 class="fade-in">Decode Indian Startups with Investor-Grade Insights</h1>
             <p class="subheadline fade-in">A curated hub for learning, exploring, and investing with precision.</p>
             <div class="cta-buttons fade-in">
-                <a href="handBookViewer.html#executive-summary" class="btn btn-primary">Read Handbook</a>
+                <a href="handBookViewer.html?file=VcHandbook1.htm#executive-summary" class="btn btn-primary">Read Handbook</a>
                 <a href="#about" class="btn btn-secondary">Learn More</a>
             </div>
         </div>
@@ -75,7 +75,7 @@
     <!-- Template for Card -->
     <template id="cardTemplate">
         <article class="knowledge-card">
-            <a href="#" class="knowledge-card__link">
+            <a href="#" class="knowledge-card__link" data-handbook-file="">
                 <div class="knowledge-card__icon">
                     <!-- Icon will be inserted here -->
                 </div>
@@ -230,5 +230,19 @@
     <script src="scripts/knowledge-hub.js"></script>
     <script src="scripts/theme.js"></script>
     <script src="scripts/back-to-top.js"></script>
+    <script>
+    // Update the card creation to include the handbook file
+    function createCard(cardData) {
+        const template = document.getElementById('cardTemplate');
+        const card = template.content.cloneNode(true);
+        
+        const link = card.querySelector('.knowledge-card__link');
+        if (cardData.handbookFile) {
+            link.href = `handBookViewer.html?file=${cardData.handbookFile}#executive-summary`;
+            link.setAttribute('data-handbook-file', cardData.handbookFile);
+        }
+        // ... rest of the card creation code ...
+    }
+    </script>
 </body>
 </html> 

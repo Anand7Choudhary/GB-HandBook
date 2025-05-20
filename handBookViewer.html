@@ -1407,7 +1407,11 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.innerHTML = '<div id="nav-container"></div>';
 
-            const fileName = 'VcHandbook1.htm';
+            // Get the file name from URL query parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const fileName = urlParams.get('file') || 'VcHandbook1.htm'; // Fallback to default if no file specified
+
+            // Initialize the document with the specified file
             initializeDocument(fileName);
 
             // Add event listener for the toggle sidebar button
