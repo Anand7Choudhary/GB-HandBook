@@ -132,7 +132,7 @@
 
                 // Text replacements
                 // Replace � followed by 's ' with a single quote
-                html = html.replace(/�(?=s )/g, "'");
+                html = html.replace(/�(?=s[\s])/g, "'");
 
                 // Replace all other � with an asterisk
                 // html = html.replace(/�(?!s )/g, "*");
