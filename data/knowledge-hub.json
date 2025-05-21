@@ -6,22 +6,21 @@
             "description": "Master the art of startup evaluation with comprehensive metrics and frameworks used by top VCs in India.",
             "icon": "chart-line",
             "tags": ["VC", "Metrics", "Evaluation", "Frameworks"],
-            "date": "2024-03-20",
+            "date": "2025-05-20",
             "handbookFile": "VcHandbook1.htm",
             "link": "handBookViewer.html?file=VcHandbook1.htm#executive-summary",
             "published": true
         },
         {
-            "id": "growth-strategies",
-            "title": "Growth Strategies",
-            "description": "Proven frameworks and strategies for scaling your startup in the Indian market, from early traction to market leadership.",
+            "id": "Consumer Trend",
+            "title": "Consumer Trend Handbook",
+            "description": "India's beauty and personal care market, valued at $21 billion in 2025, is projected to reach $34 billion by 2028",
             "icon": "rocket",
-            "tags": ["Growth", "Strategy", "Scaling", "Market"],
-            "date": "2024-03-25",
-            "handbookFile": "test1.htm",
-            "link": "handBookViewer.html?file=test1.htm",
-            "comingSoon": true,
-            "published": false
+            "tags": ["Growth", "Strategy", "Behaviour", "Market", "Consumer"],
+            "date": "2025-05-21",
+            "handbookFile": "ConsumerBehaviorReport.htm",
+            "link": "handBookViewer.html?file=ConsumerBehaviorReport.htm",
+            "published": true
         },
         {
             "id": "founders-guide",
@@ -29,20 +28,8 @@
             "description": "Essential insights and practical advice for early-stage founders navigating the Indian startup ecosystem.",
             "icon": "lightbulb",
             "tags": ["Founders", "Early-stage", "Ecosystem", "Guidance"],
-            "date": "2024-04-01",
+            "date": "2025-05-30",
             "handbookFile": "FoundersHandbook.htm",
-            "link": "#",
-            "comingSoon": true,
-            "published": false
-        },
-        {
-            "id": "market-analysis",
-            "title": "Market Analysis Framework",
-            "description": "Comprehensive framework for analyzing market opportunities and competitive landscapes in India.",
-            "icon": "chart-pie",
-            "tags": ["Market", "Analysis", "Competition", "Opportunity"],
-            "date": "2024-03-22",
-            "handbookFile": "MarketHandbook.htm",
             "link": "#",
             "comingSoon": true,
             "published": false

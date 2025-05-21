@@ -2241,3 +2241,35 @@ section:nth-child(even) {
                 color 0.3s ease,
                 box-shadow 0.3s ease;
 } 
+
+
+.landing-title{
+    background: linear-gradient(to right, #ff6161, #fc67fa);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Pacifico", cursive;
+    font-weight: 100;
+    font-style: normal;
+    font-size: 150px;
+    cursor:context-menu;
+}
+@media screen and (max-width: 1020px) {
+    .landing-title{
+        font-size: 130px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .landing-title{
+        font-size: 100px;
+    }
+}
+@media screen and (max-width: 480px) {
+    .landing-title{
+        font-size: 75px;
+    }
+    h1 {
+        font-size: 2rem;
+    }
+}
