@@ -135,8 +135,10 @@
                 html = html.replace(/�(?=s )/g, "'");
 
                 // Replace all other � with an asterisk
-                html = html.replace(/�(?!s )/g, "*");
+                // html = html.replace(/�(?!s )/g, "*");
                 html = html.replace(/(?<=\d)�(?=\d)/g, "-");
+                html = html.replace(/�(?=[\n\t])/g, " ");
+                html = html.replace(/�/g, "*")
                 html = html.replace(/&(?=[a-zA-Z0-9#]{1,10};)/g, "&");
 
                 // Create a temporary div to parse the HTML
