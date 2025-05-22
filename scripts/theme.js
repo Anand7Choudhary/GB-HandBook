@@ -13,7 +13,7 @@ class ThemeManager {
         document.body.appendChild(this.themeToggle);
 
         // Set initial theme
-        this.setTheme(this.getStoredTheme() || 'light');
+        this.setTheme(this.getStoredTheme() || 'dark');
 
         // Add click event listener
         this.themeToggle.addEventListener('click', () => this.toggleTheme());
